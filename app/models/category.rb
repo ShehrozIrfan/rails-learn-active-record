@@ -5,6 +5,8 @@ class Category < ApplicationRecord
   validates :name, presence: true
 
   before_validation :add_prefix, if: :missing_prefix
+  #the around_save benchmark is defined in the application_record.rb file
+  around_save :benchmark
 
   private
 
