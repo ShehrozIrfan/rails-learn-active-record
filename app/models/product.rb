@@ -15,4 +15,8 @@ class Product < ApplicationRecord
   # def prefix
   #  category.prefix
   # end
+
+  def full_ref_num
+    "#{prefix}-#{ref_num}"
+  end
 end
