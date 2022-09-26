@@ -7,8 +7,8 @@ class Product < ApplicationRecord
   #Below is the named scope that will be called like: Product.recent
   scope :recent, lambda { where("created_at >= ?", 1.day.ago) }
 
-  #we can also set the prefix name
-  delegate :prefix, to: :category, prefix: true
+  #we can also set the prefix name of our choice
+  delegate :prefix, to: :category, prefix: 'cat'
 
   #The above delegate code is same as:
   # def prefix
@@ -16,7 +16,7 @@ class Product < ApplicationRecord
   # end
 
   def full_ref_num
-    #as we've added the prefix true, so now we will use object_attribute: category_prefix
-    "#{category_prefix}-#{ref_num}"
+    #as we've added the prefix true, so now we will use object_attribute: cat_prefix
+    "#{cat_prefix}-#{ref_num}"
   end
 end
