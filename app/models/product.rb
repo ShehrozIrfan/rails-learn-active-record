@@ -7,9 +7,8 @@ class Product < ApplicationRecord
   #Below is the named scope that will be called like: Product.recent
   scope :recent, lambda { where("created_at >= ?", 1.day.ago) }
 
-  #Delegate allow a request for an object’s attribute to be delegated or referred to another object.
-  #The delegate works in a way that the child ask it's parent for the attribute.
-  delegate :prefix, to: :category
+  #we can also set the prefix name
+  delegate :prefix, to: :category, prefix: true
 
   #The above delegate code is same as:
   # def prefix
@@ -17,6 +16,7 @@ class Product < ApplicationRecord
   # end
 
   def full_ref_num
-    "#{prefix}-#{ref_num}"
+    #as we've added the prefix true, so now we will use object_attribute: category_prefix
+    "#{category_prefix}-#{ref_num}"
   end
 end
