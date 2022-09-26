@@ -6,4 +6,17 @@ class Product < ApplicationRecord
 
   #Below is the named scope that will be called like: Product.recent
   scope :recent, lambda { where("created_at >= ?", 1.day.ago) }
+
+  #Add the allow_nil: true, in case when there is no associated record exists, then we don't get an error
+  delegate :prefix, to: :category, prefix: 'cat', allow_nil: true
+
+  #The above delegate code is same as:
+  # def prefix
+  #  category.prefix
+  # end
+
+  def full_ref_num
+    #as we've added the prefix true, so now we will use object_attribute: cat_prefix
+    "#{cat_prefix}-#{ref_num}"
+  end
 end
