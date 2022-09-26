@@ -15,8 +15,16 @@ class Product < ApplicationRecord
   #  category.prefix
   # end
 
+  #callbacks
+  after_save :announce_saved
+
   def full_ref_num
     #as we've added the prefix true, so now we will use object_attribute: cat_prefix
     "#{cat_prefix}-#{ref_num}"
   end
+
+  private
+    def announce_saved
+      puts "*** Saved! ***"
+    end
 end
