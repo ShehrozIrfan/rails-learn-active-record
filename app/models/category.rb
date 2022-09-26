@@ -4,13 +4,16 @@ class Category < ApplicationRecord
   validates :prefix, presence: true
   validates :name, presence: true
 
-  before_validation :add_prefix
+  before_validation :add_prefix, if: :missing_prefix
 
   private
+
+    def missing_prefix
+      prefix.blank?
+    end
+
     def add_prefix
-      if prefix.blank?
-        puts "*** Adding Prefix!"
-        self.prefix = "GEN"
-      end
+      puts "*** Adding Prefix!"
+      self.prefix = "GEN"
     end
 end
