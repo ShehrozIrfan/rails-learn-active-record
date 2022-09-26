@@ -7,8 +7,8 @@ class Product < ApplicationRecord
   #Below is the named scope that will be called like: Product.recent
   scope :recent, lambda { where("created_at >= ?", 1.day.ago) }
 
-  #we can also set the prefix name of our choice
-  delegate :prefix, to: :category, prefix: 'cat'
+  #Add the allow_nil: true, in case when there is no associated record exists, then we don't get an error
+  delegate :prefix, to: :category, prefix: 'cat', allow_nil: true
 
   #The above delegate code is same as:
   # def prefix
