@@ -9,7 +9,7 @@ class Category < ApplicationRecord
   # has_many :products, lambda { reorder(:created_at) }
 
   # we can also add where and other queries in association like:
-  has_many :products, lambda { where("qty_sold > 1") }
+  has_many :products, lambda { where("qty_sold > 0") }, dependent: :destroy
 
   # we can also add queries to same association with different class name
 
