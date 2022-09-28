@@ -26,6 +26,15 @@ class Product < ApplicationRecord
     "#{cat_prefix}-#{ref_num}"
   end
 
+  # STI - Single table inheritance
+  def available_online
+    true
+  end
+
+  def available_store
+    true
+  end
+
   private
     def announce_saved
       puts "*** Saved! ***"
