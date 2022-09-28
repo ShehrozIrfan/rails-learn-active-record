@@ -15,13 +15,17 @@ class Category < ApplicationRecord
 
   has_many :products_available, lambda { where("inventory > 0") }, class_name: 'Product'
 
+  # self-referential associations
+  # we can also consider the comment can have many replies/response to it, and then those replies/responses can further have many replies/responses
+  belongs_to :parent, class_name: 'Category', optional: true
+  has_many :sub_categories, class_name: 'Category', foreign_key: 'parent_id'
 
   validates :prefix, presence: true
   validates :name, presence: true
 
   before_validation :add_prefix, if: :missing_prefix
   #the around_save benchmark is defined in the application_record.rb file
-  around_save :benchmark
+  # around_save :benchmark
 
   private
 
