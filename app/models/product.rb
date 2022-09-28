@@ -21,6 +21,9 @@ class Product < ApplicationRecord
   #callbacks
   after_save :announce_saved
 
+  # polymorphic associations
+  has_many :documents, as: :documentable
+
   def full_ref_num
     #as we've added the prefix true, so now we will use object_attribute: cat_prefix
     "#{cat_prefix}-#{ref_num}"
